@@ -9,17 +9,17 @@ type ApodModalProps ={
 }
 
 export default function Example({ hdurl, title,}: ApodModalProps) {
-  const [open, setOpen] = useState(true)
+  const [open, setIsOpen] = useState(true)
 
   return (
     <div>
       <button
-        onClick={() => setOpen(true)}
+        onClick={() => setIsOpen(true)}
         className="rounded-md bg-white/10 px-2.5 py-1.5 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20"
       >
         Open dialog
       </button>
-      <Dialog open={open} onClose={setOpen} className="relative z-10">
+      <Dialog open={open} onClose={setIsOpen} className="relative z-10">
         <DialogBackdrop
           transition
           className="fixed inset-0 bg-gray-900/50 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"
@@ -47,7 +47,7 @@ export default function Example({ hdurl, title,}: ApodModalProps) {
                 <button
                   type="button"
                   data-autofocus
-                  onClick={() => setOpen(false)}
+                  onClick={() => setIsOpen(false)}
                   className="mt-3 inline-flex w-full justify-center rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20 sm:mt-0 sm:w-auto"
                 >
                   Cancel
