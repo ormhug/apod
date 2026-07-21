@@ -1,15 +1,15 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
+import { useState } from 'react';
+import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
 
-type ApodModalProps ={
-    hdurl: string;
-    title: string;
-}
+type ApodModalProps = {
+  hdurl: string;
+  title: string;
+};
 
-export default function Example({ hdurl, title,}: ApodModalProps) {
-  const [open, setIsOpen] = useState(true)
+export default function Example({ hdurl, title }: ApodModalProps) {
+  const [open, setIsOpen] = useState(true);
 
   return (
     <div>
@@ -38,7 +38,7 @@ export default function Example({ hdurl, title,}: ApodModalProps) {
                       {title}
                     </DialogTitle>
                     <div className="mt-2">
-                        <img src={hdurl}/>
+                      <img src={hdurl} />
                     </div>
                   </div>
                 </div>
@@ -58,5 +58,5 @@ export default function Example({ hdurl, title,}: ApodModalProps) {
         </div>
       </Dialog>
     </div>
-  )
+  );
 }
