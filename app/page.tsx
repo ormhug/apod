@@ -1,4 +1,4 @@
-import ApodModal from "@/components/ApodModal";
+import ApodModal from '@/components/ApodModal';
 
 type ApodData = {
   date: string;
@@ -6,14 +6,16 @@ type ApodData = {
   title: string;
   url: string;
   hdurl: string;
-  media_type: "image";
+  media_type: 'image';
 };
+
+const API_KEY = process.env.NEXT_NASA_API_KEY || 'DEMO_KEY';
 
 const APOD = await getApod();
 
 async function getApod(): Promise<ApodData> {
-   const RESPONSE = await fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY'); 
-   return RESPONSE.json(); 
+  const RESPONSE = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`);
+  return RESPONSE.json();
 }
 
 export default async function Home() {
@@ -23,9 +25,7 @@ export default async function Home() {
     <main className="min-h-screen bg-white dark:bg-gray-900">
       <section className="bg-white dark:bg-gray-900">
         <div className="mx-auto max-w-screen-xl px-4 pt-20 pb-8 lg:py-16 lg:pt-28">
-          <p className="mb-3 text-sm font-medium text-purple-600">
-            {APOD.date}
-          </p>
+          <p className="mb-3 text-sm font-medium text-purple-600">{APOD.date}</p>
 
           <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl xl:text-6xl">
             {APOD.title}
