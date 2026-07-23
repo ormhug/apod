@@ -1,4 +1,4 @@
-import ApodModal from '@/components/ApodModal';
+import ApodModal from "@/components/ApodModal";
 
 type ApodData = {
   date: string;
@@ -6,38 +6,49 @@ type ApodData = {
   title: string;
   url: string;
   hdurl: string;
-  media_type: 'image';
+  media_type: "image";
 };
 
 const APOD = await getApod();
 
 async function getApod(): Promise<ApodData> {
-  const RESPONSE = await fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY');
-
-  return RESPONSE.json();
+   const RESPONSE = await fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY'); 
+   return RESPONSE.json(); 
 }
 
-export default function Home() {
+export default async function Home() {
+  const APOD = await getApod();
+
   return (
-    <main className="min-h-screen bg-white dark:bg-grey-900">
+    <main className="min-h-screen bg-white dark:bg-gray-900">
       <section className="bg-white dark:bg-gray-900">
-        <div className="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
-          <div className="mr-auto place-self-center lg:col-span-7">
-            <p className="mb-3 text-sm font-medium text-purple-600">{APOD.date}</p>
+        <div className="mx-auto max-w-screen-xl px-4 pt-20 pb-8 lg:py-16 lg:pt-28">
+          <p className="mb-3 text-sm font-medium text-purple-600">
+            {APOD.date}
+          </p>
 
-            <h1 className="max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white">
-              {APOD.title}
-            </h1>
+          <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl xl:text-6xl">
+            {APOD.title}
+          </h1>
 
-            <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
-              {APOD.explanation}
-            </p>
-            <div className="space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
-              <ApodModal hdurl={APOD.hdurl} title={APOD.title} />
+          <div className="grid items-start gap-8 lg:grid-cols-[1.2fr_1fr]">
+            <div>
+              <p className="mb-6 font-light text-gray-500 dark:text-gray-400 md:text-lg lg:text-xl">
+                {APOD.explanation}
+              </p>
+
+              <div className="mt-6">
+                <ApodModal hdurl={APOD.hdurl} title={APOD.title} />
+              </div>
             </div>
-          </div>
-          <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
-            <img src={APOD.url} alt={APOD.title}></img>
+
+            <div className="flex items-start justify-center">
+              <img
+                src={APOD.url}
+                alt={APOD.title}
+                className="h-[320px] w-full rounded-xl object-cover"
+              />
+            </div>
           </div>
         </div>
       </section>
