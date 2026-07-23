@@ -8,18 +8,20 @@ type ApodModalProps = {
   title: string;
 };
 
-export default function Example({ hdurl, title }: ApodModalProps) {
-  const [open, setIsOpen] = useState(true);
+type ReadonlyProps = Readonly<ApodModalProps>;
+
+export default function Example({ hdurl, title }: ReadonlyProps) {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div>
       <button
         onClick={() => setIsOpen(true)}
-        className="rounded-md bg-white/10 px-2.5 py-1.5 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20"
+        className="rounded-md bg-black/10 px-2.5 py-1.5 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20"
       >
         Open dialog
       </button>
-      <Dialog open={open} onClose={setIsOpen} className="relative z-10">
+      <Dialog open={isOpen} onClose={setIsOpen} className="relative z-10">
         <DialogBackdrop
           transition
           className="fixed inset-0 bg-gray-900/50 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"
@@ -38,7 +40,7 @@ export default function Example({ hdurl, title }: ApodModalProps) {
                       {title}
                     </DialogTitle>
                     <div className="mt-2">
-                      <img src={hdurl} />
+                      <img src={hdurl} alt={title}/>
                     </div>
                   </div>
                 </div>
