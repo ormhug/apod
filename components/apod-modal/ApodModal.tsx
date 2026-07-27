@@ -3,14 +3,11 @@
 import { useState } from 'react';
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
 
-type ApodModalProps = {
-  hdurl: string;
-  title: string;
-};
+import type { ApodModalProps } from './types';
 
 type ReadonlyProps = Readonly<ApodModalProps>;
 
-export default function Example({ hdurl, title }: ReadonlyProps) {
+export default function Example({ hdUrl, title }: ReadonlyProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -40,7 +37,7 @@ export default function Example({ hdurl, title }: ReadonlyProps) {
                       {title}
                     </DialogTitle>
                     <div className="mt-2">
-                      <img src={hdurl} alt={title}/>
+                      <img src={hdUrl} alt={title} />
                     </div>
                   </div>
                 </div>
