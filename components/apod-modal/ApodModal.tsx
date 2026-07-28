@@ -3,21 +3,18 @@
 import { useState } from 'react';
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
 
-type ApodModalProps = {
-  hdurl: string;
-  title: string;
-};
+import type { ApodModalProps } from './types';
 
 type ReadonlyProps = Readonly<ApodModalProps>;
 
-export default function Example({ hdurl, title }: ReadonlyProps) {
+export default function Example({ hdUrl, title }: ReadonlyProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div>
       <button
         onClick={() => setIsOpen(true)}
-        className="rounded-md bg-black/10 px-2.5 py-1.5 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20"
+        className="rounded-md bg-gray-900 px-3 py-2 text-sm font-semibold text-white hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-white"
       >
         Open dialog
       </button>
@@ -40,7 +37,7 @@ export default function Example({ hdurl, title }: ReadonlyProps) {
                       {title}
                     </DialogTitle>
                     <div className="mt-2">
-                      <img src={hdurl} alt={title}/>
+                      <img src={hdUrl} alt={title} />
                     </div>
                   </div>
                 </div>
