@@ -2,16 +2,16 @@
 
 ## Components
 
-Use **PascalCase** for all React component names. Names should be descriptive and meaningful.
+Use **PascalCase** for all React component names. Names should be descriptive and meaningful. Always use arrow functions.
 
 ```tsx
 // Good
-function UserCard() { ... }
-function ProfileHeader() { ... }
+const UserCard = () => { ... }
+const ProfileHeader = () => { ... }
 
 // Bad
-function usercard() { ... }
-function profile_header() { ... }
+const UserCard_Component = () => { ... }
+const profile_header = () => { ... }
 ```
 
 ## Files
@@ -31,16 +31,16 @@ lib/apollo-client.ts           // Non-component file
 
 When a component grows to need supporting files, keep them in the same directory and prefix them with the component name using a dot separator:
 
-| File | Purpose |
-|------|---------|
-| `FileViewer.tsx` | Main component |
-| `FileContent.tsx` | Sub-component used only by `FileViewer` |
-| `Sidebar.tsx` | Sub-component used only by `FileViewer` |
-| `Directory.tsx` | Sub-component used only by `FileViewer` |
-| `File.tsx` | Sub-component used only by `FileViewer` |
-| `FileViewer.helpers.ts` | Helper functions scoped to this feature |
-| `FileViewer.types.ts` | TypeScript types shared across files in this directory |
-| `useSidebar.ts` | Hook scoped to the `Sidebar` component |
+| File                    | Purpose                                                |
+| ----------------------- | ------------------------------------------------------ |
+| `FileViewer.tsx`        | Main component                                         |
+| `FileContent.tsx`       | Sub-component used only by `FileViewer`                |
+| `Sidebar.tsx`           | Sub-component used only by `FileViewer`                |
+| `Directory.tsx`         | Sub-component used only by `FileViewer`                |
+| `File.tsx`              | Sub-component used only by `FileViewer`                |
+| `FileViewer.helpers.ts` | Helper functions scoped to this feature                |
+| `FileViewer.types.ts`   | TypeScript types shared across files in this directory |
+| `useSidebar.ts`         | Hook scoped to the `Sidebar` component                 |
 
 The suffixes follow this pattern:
 
@@ -72,32 +72,32 @@ The `app/` directory drives routing. A route is only publicly accessible when a 
 
 These file names have special meaning to Next.js and must be lowercase:
 
-| File | Purpose |
-|------|---------|
-| `layout.tsx` | Shared UI wrapping child segments (persists across page transitions) |
-| `page.tsx` | Unique UI for a route — makes the segment publicly accessible |
-| `loading.tsx` | Suspense boundary shown while the segment loads |
-| `error.tsx` | Error boundary for the segment |
-| `not-found.tsx` | UI rendered when `notFound()` is thrown |
-| `global-error.tsx` | Error boundary wrapping the root layout |
-| `template.tsx` | Like `layout.tsx` but re-mounted on every navigation |
-| `default.tsx` | Fallback UI for parallel routes |
-| `route.ts` | API endpoint (no UI) |
+| File               | Purpose                                                              |
+| ------------------ | -------------------------------------------------------------------- |
+| `layout.tsx`       | Shared UI wrapping child segments (persists across page transitions) |
+| `page.tsx`         | Unique UI for a route — makes the segment publicly accessible        |
+| `loading.tsx`      | Suspense boundary shown while the segment loads                      |
+| `error.tsx`        | Error boundary for the segment                                       |
+| `not-found.tsx`    | UI rendered when `notFound()` is thrown                              |
+| `global-error.tsx` | Error boundary wrapping the root layout                              |
+| `template.tsx`     | Like `layout.tsx` but re-mounted on every navigation                 |
+| `default.tsx`      | Fallback UI for parallel routes                                      |
+| `route.ts`         | API endpoint (no UI)                                                 |
 
 #### Folder naming conventions
 
-| Convention | Example | Effect |
-|------------|---------|--------|
-| Plain folder | `app/blog/` | Adds `/blog` segment to the URL |
-| Dynamic segment | `app/blog/[slug]/` | Matches any single value: `/blog/my-post` |
-| Catch-all segment | `app/shop/[...slug]/` | Matches one or more segments: `/shop/a/b/c` |
-| Optional catch-all | `app/docs/[[...slug]]/` | Matches zero or more segments: `/docs` or `/docs/a/b` |
-| Route group | `app/(marketing)/` | Groups routes for layout/organization — **omitted from the URL** |
-| Private folder | `app/blog/_components/` | Excluded from routing — safe for UI utilities and helpers. All nested folders are also excluded. |
-| Parallel route slot | `app/@sidebar/` | Named slot rendered by the parent layout alongside `@children` |
-| Same-level intercept | `app/(.)photo/` | Renders another route as an overlay without changing the URL |
-| Parent-level intercept | `app/(..)photo/` | Intercepts one level up |
-| Root intercept | `app/(...)photo/` | Intercepts from the app root |
+| Convention             | Example                 | Effect                                                                                           |
+| ---------------------- | ----------------------- | ------------------------------------------------------------------------------------------------ |
+| Plain folder           | `app/blog/`             | Adds `/blog` segment to the URL                                                                  |
+| Dynamic segment        | `app/blog/[slug]/`      | Matches any single value: `/blog/my-post`                                                        |
+| Catch-all segment      | `app/shop/[...slug]/`   | Matches one or more segments: `/shop/a/b/c`                                                      |
+| Optional catch-all     | `app/docs/[[...slug]]/` | Matches zero or more segments: `/docs` or `/docs/a/b`                                            |
+| Route group            | `app/(marketing)/`      | Groups routes for layout/organization — **omitted from the URL**                                 |
+| Private folder         | `app/blog/_components/` | Excluded from routing — safe for UI utilities and helpers. All nested folders are also excluded. |
+| Parallel route slot    | `app/@sidebar/`         | Named slot rendered by the parent layout alongside `@children`                                   |
+| Same-level intercept   | `app/(.)photo/`         | Renders another route as an overlay without changing the URL                                     |
+| Parent-level intercept | `app/(..)photo/`        | Intercepts one level up                                                                          |
+| Root intercept         | `app/(...)photo/`       | Intercepts from the app root                                                                     |
 
 #### Route groups
 
@@ -159,8 +159,8 @@ const [shouldRender, setShouldRender] = useState(true);
 Prefix event handler functions with `handle`.
 
 ```ts
-function handleClick() { ... }
-function handleInputChange(e: ChangeEvent<HTMLInputElement>) { ... }
+const handleClick = () => { ... }
+const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => { ... }
 ```
 
 When passed as props, use the `on` prefix for the prop name:
@@ -174,7 +174,7 @@ When passed as props, use the `on` prefix for the prop name:
 Use **SCREAMING_SNAKE_CASE** for module-level constants.
 
 ```ts
-const API_URL = "https://api.example.com";
+const API_URL = 'https://api.example.com';
 const MAX_RESULTS = 50;
 ```
 
@@ -183,8 +183,8 @@ const MAX_RESULTS = 50;
 Use **camelCase** with names that describe what the function does, not how.
 
 ```ts
-function formatDate(date: Date): string { ... }
-function generateUniqueId(): string { ... }
+const formatDate = (date: Date): string => { ... }
+const generateUniqueId = (): string => { ... }
 ```
 
 ## Hooks
@@ -192,8 +192,8 @@ function generateUniqueId(): string { ... }
 Prefix all hooks with `use`.
 
 ```ts
-function useAuth() { ... }
-function useWindowSize() { ... }
+const useAuth = () => { ... }
+const useWindowSize = () => { ... }
 ```
 
 ## Types and Interfaces
@@ -220,8 +220,9 @@ Prefer **named exports** over default exports for better IDE discoverability and
 
 ```ts
 // Good
-export function UserCard() { ... }
+export const UserCard = () => { ... }
 
 // Avoid
-export default function UserCard() { ... }
+const UserCard = () => { ... }
+export default UserCard;
 ```
