@@ -14,7 +14,7 @@ export default function Example({ hdUrl, title }: ReadonlyProps) {
     <div>
       <button
         onClick={() => setIsOpen(true)}
-        className="rounded-md bg-black/10 px-2.5 py-1.5 text-sm font-semibold text-white inset-ring inset-ring-white/5 hover:bg-white/20"
+        className="rounded-md bg-gray-900 px-3 py-2 text-sm font-semibold text-white hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-white"
       >
         Open dialog
       </button>
