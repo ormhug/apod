@@ -1,4 +1,4 @@
-import { getApod } from '@/lib/api/apod/GetApod';
+import { getApod } from '@/services/apod-service';
 import ApodPage from '@/app/templates/ApodPage';
 
 export default async function Home() {

@@ -22,17 +22,28 @@ export default function ApodPage({ apod }: Readonly<ApodPageProps>) {
                 {apod.explanation}
               </p>
 
-              <div className="mt-6">
-                <ApodModal hdUrl={apod.hdurl} title={apod.title} />
-              </div>
+              {apod.media_type === 'image' && apod.hdurl && (
+                <div className="mt-6">
+                  <ApodModal hdUrl={apod.hdurl} title={apod.title} />
+                </div>
+              )}
             </div>
 
             <div className="flex items-start justify-center">
-              <img
-                src={apod.url}
-                alt={apod.title}
-                className="h-[320px] w-full rounded-xl object-cover"
-              />
+              {apod.media_type === 'video' ? (
+                <iframe
+                  src={apod.url}
+                  title={apod.title}
+                  className="h-[320px] w-full rounded-xl"
+                  allowFullScreen
+                />
+              ) : (
+                <img
+                  src={apod.url}
+                  alt={apod.title}
+                  className="h-[320px] w-full rounded-xl object-cover"
+                />
+              )}
             </div>
           </div>
         </div>

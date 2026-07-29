@@ -3,6 +3,6 @@ export interface ApodData {
   explanation: string;
   title: string;
   url: string;
-  hdurl: string;
-  media_type: 'image';
+  hdurl?: string;
+  media_type: 'image' | 'video';
 }
