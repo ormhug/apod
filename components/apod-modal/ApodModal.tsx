@@ -7,7 +7,7 @@ import type { ApodModalProps } from './types';
 
 type ReadonlyProps = Readonly<ApodModalProps>;
 
-export default function Example({ hdUrl, title }: ReadonlyProps) {
+const ApodModal = ({ hdUrl, title }: ReadonlyProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -58,4 +58,6 @@ export default function Example({ hdUrl, title }: ReadonlyProps) {
       </Dialog>
     </div>
   );
-}
+};
+
+export default ApodModal;
