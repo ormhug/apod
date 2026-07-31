@@ -1,10 +1,10 @@
-import ApodPage from '@/app/templates/ApodPage';
+import ApodView from '@/components/ApodView';
 import { getApod } from '@/services/apod-service';
 
 const Home = async () => {
   const apod = await getApod();
 
-  return <ApodPage apod={apod} />;
+  return <ApodView apod={apod} />;
 };
 
 export default Home;

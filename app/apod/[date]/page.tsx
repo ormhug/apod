@@ -1,4 +1,4 @@
-import ApodPage from '@/app/templates/ApodPage';
+import ApodView from '@/components/ApodView';
 import { getApod } from '@/services/apod-service';
 
 interface DateApodPageProps {
@@ -11,7 +11,7 @@ const DateApodPage = async ({ params }: Readonly<DateApodPageProps>) => {
   const { date } = await params;
   const apod = await getApod(date);
 
-  return <ApodPage apod={apod} />;
+  return <ApodView apod={apod} />;
 };
 
 export default DateApodPage;
