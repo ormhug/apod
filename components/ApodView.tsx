@@ -1,11 +1,11 @@
 import ApodModal from '@/components/apod-modal/ApodModal';
 import type { ApodData } from '@/lib/api/apod/types';
 
-interface ApodPageProps {
+interface ApodViewProps {
   apod: ApodData;
 }
 
-export default function ApodPage({ apod }: Readonly<ApodPageProps>) {
+export default function ApodView({ apod }: Readonly<ApodViewProps>) {
   return (
     <main className="min-h-screen bg-white dark:bg-gray-900">
       <section className="bg-white dark:bg-gray-900">
