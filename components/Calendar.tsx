@@ -128,8 +128,18 @@ export const Calendar = (props: Readonly<CalendarProps>) => {
   };
 
   const calendarCells = [
-    ...Array.from({ length: firstDayOfMonth }, () => null),
-    ...Array.from({ length: daysInMonth }, (_, index) => index + 1),
+    ...Array.from({ length: firstDayOfMonth }, (_, position) => ({
+      id: `empty-${displayedYear}-${displayedMonth}-${position + 1}`,
+      day: null,
+    })),
+    ...Array.from({ length: daysInMonth }, (_, position) => {
+      const day = position + 1;
+
+      return {
+        id: formatDate(displayedYear, displayedMonth, day),
+        day,
+      };
+    }),
   ];
 
   return (
@@ -162,9 +172,9 @@ export const Calendar = (props: Readonly<CalendarProps>) => {
           </div>
         ))}
 
-        {calendarCells.map((day, index) => {
+        {calendarCells.map(({ id, day }) => {
           if (day === null) {
-            return <div key={`empty-${index}`} />;
+            return <div key={id} aria-hidden="true" />;
           }
 
           const date = formatDate(displayedYear, displayedMonth, day);
@@ -197,7 +207,7 @@ export const Calendar = (props: Readonly<CalendarProps>) => {
 
           return (
             <button
-              key={date}
+              key={id}
               type="button"
               disabled={isFutureDate}
               onClick={() => handleDateSelect(date)}
