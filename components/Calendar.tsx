@@ -63,6 +63,10 @@ export const Calendar = (props: Readonly<CalendarProps>) => {
   const displayedYear = displayedDate.getFullYear();
   const displayedMonth = displayedDate.getMonth();
 
+  const today = getTodayString();
+
+  const maximumDate = props.max && props.max < today ? props.max : today;
+
   const firstDayOfMonth = new Date(displayedYear, displayedMonth, 1).getDay();
 
   const daysInMonth = new Date(displayedYear, displayedMonth + 1, 0).getDate();
@@ -72,12 +76,10 @@ export const Calendar = (props: Readonly<CalendarProps>) => {
     year: 'numeric',
   }).format(displayedDate);
 
-  const maxDate = props.max ? parseDate(props.max) : undefined;
+  const [maximumYear, maximumMonth] = maximumDate.split('-').map(Number);
 
   const canOpenNextMonth =
-    !maxDate ||
-    new Date(displayedYear, displayedMonth + 1, 1) <=
-      new Date(maxDate.getFullYear(), maxDate.getMonth(), 1);
+    new Date(displayedYear, displayedMonth + 1, 1) <= new Date(maximumYear, maximumMonth - 1, 1);
 
   const handlePreviousMonth = () => {
     setDisplayedDate(new Date(displayedYear, displayedMonth - 1, 1));
@@ -92,6 +94,10 @@ export const Calendar = (props: Readonly<CalendarProps>) => {
   };
 
   const handleDateSelect = (date: string) => {
+    if (date > maximumDate) {
+      return;
+    }
+
     if (props.mode === 'single') {
       props.onChange(date);
       return;
@@ -179,7 +185,7 @@ export const Calendar = (props: Readonly<CalendarProps>) => {
 
           const date = formatDate(displayedYear, displayedMonth, day);
 
-          const isFutureDate = maxDate !== undefined && parseDate(date) > maxDate;
+          const isFutureDate = date > maximumDate;
 
           const isSelected = isSelectedDate(date);
           const isInRange = isDateInRange(date);
@@ -210,9 +216,10 @@ export const Calendar = (props: Readonly<CalendarProps>) => {
               key={id}
               type="button"
               disabled={isFutureDate}
+              aria-disabled={isFutureDate}
               onClick={() => handleDateSelect(date)}
               aria-label={`Select ${date}`}
-              aria-pressed={isSelected}
+              aria-pressed={isFutureDate}
               className={dateClassName}
             >
               {day}
