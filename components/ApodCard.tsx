@@ -30,7 +30,7 @@ export const ApodCard = ({ apod }: Readonly<ApodCardProps>) => {
 
         {apod.media_type === 'image' && apod.hdurl && (
           <div className="mt-5">
-            <ApodModal hdUrl={apod.hdurl} title={apod.title} />
+            <ApodModal hdUrl={apod.hdurl} title={apod.title} buttonLabel="View HD" />
           </div>
         )}
       </div>

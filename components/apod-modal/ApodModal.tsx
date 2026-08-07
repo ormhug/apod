@@ -7,7 +7,7 @@ import type { ApodModalProps } from './types';
 
 type ReadonlyProps = Readonly<ApodModalProps>;
 
-const ApodModal = ({ hdUrl, title }: ReadonlyProps) => {
+const ApodModal = ({ hdUrl, title, buttonLabel = 'Open dialog' }: ReadonlyProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -16,7 +16,7 @@ const ApodModal = ({ hdUrl, title }: ReadonlyProps) => {
         onClick={() => setIsOpen(true)}
         className="rounded-md bg-gray-900 px-3 py-2 text-sm font-semibold text-white hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-white"
       >
-        Open dialog
+        {buttonLabel}{' '}
       </button>
       <Dialog open={isOpen} onClose={setIsOpen} className="relative z-10">
         <DialogBackdrop
