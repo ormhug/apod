@@ -13,6 +13,7 @@ const ApodModal = ({ hdUrl, title, buttonLabel = 'Open dialog' }: ReadonlyProps)
   return (
     <div>
       <button
+        type="button"
         onClick={() => setIsOpen(true)}
         className="rounded-md bg-gray-900 px-3 py-2 text-sm font-semibold text-white hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-white"
       >
