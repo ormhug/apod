@@ -1,6 +1,7 @@
 import { ApodCard } from '@/components/ApodCard';
 import { getApodRange } from '@/services/apod-service';
 import { Pagination } from '@/components/Pagination';
+import type { Metadata } from 'next';
 
 interface GallerySearchParams {
   start_date?: string;
@@ -13,6 +14,24 @@ interface GalleryPageProps {
 }
 
 const ITEMS_PER_PAGE = 10;
+
+export const generateMetadata = async ({
+  searchParams,
+}: Readonly<GalleryPageProps>): Promise<Metadata> => {
+  const { start_date: startDate, end_date: endDate } = await searchParams;
+
+  if (!startDate) {
+    return {
+      title: 'APOD Gallery',
+    };
+  }
+
+  return {
+    title: endDate
+      ? `APOD Gallery — ${startDate} to ${endDate}`
+      : `APOD Gallery — from ${startDate}`,
+  };
+};
 
 const GalleryPage = async ({ searchParams }: Readonly<GalleryPageProps>) => {
   const { start_date: startDate, end_date: endDate, page: pageValue } = await searchParams;
@@ -31,7 +50,37 @@ const GalleryPage = async ({ searchParams }: Readonly<GalleryPageProps>) => {
     );
   }
 
-  const apods = await getApodRange(startDate, endDate);
+  let apods;
+
+  try {
+    apods = await getApodRange(startDate, endDate);
+  } catch {
+    return (
+      <main className="min-h-screen bg-gray-100 px-4 pt-28 pb-12 dark:bg-gray-900">
+        <div className="mx-auto max-w-5xl">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">APOD gallery</h1>
+
+          <p className="mt-4 text-red-600 dark:text-red-400">
+            Unable to load APOD data. Please try again later.
+          </p>
+        </div>
+      </main>
+    );
+  }
+
+  if (apods.length === 0) {
+    return (
+      <main className="min-h-screen bg-gray-100 px-4 pt-28 pb-12 dark:bg-gray-900">
+        <div className="mx-auto max-w-5xl">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">APOD gallery</h1>
+
+          <p className="mt-4 text-gray-600 dark:text-gray-400">
+            No APOD entries were found for the selected date range.
+          </p>
+        </div>
+      </main>
+    );
+  }
 
   const requestedPage = Number.parseInt(pageValue ?? '1', 10);
 
